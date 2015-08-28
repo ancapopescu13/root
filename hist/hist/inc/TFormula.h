@@ -380,7 +380,6 @@ TFormula(const char *name, const char *formula, bool addToGlobList)   :
 	static const TString gNamePrefix = name;
 }
 #endif
-
 TFormula(const char *name, const char *formula, bool addToGlobList = true)   :
      fName(name),
      fFormula(formula)

@@ -1,0 +1,153 @@
+
+
+#ifndef ROOT_TFormulaLite
+#define ROOT_TFormulaLite
+
+
+#ifndef ROOT_TNamed
+#include "TNamed.h"
+#endif
+#include "TInterpreter.h"
+#include "TClass.h"
+#include <map>
+#include <iostream>
+#include <string>
+#include <vector>
+
+template<class T> class TFormulaLite
+{
+private:
+   TString                        fName;
+   TString                        fForm;
+   TString                        fFormula;
+
+   Int_t                          fNpar;
+
+public:
+
+std::vector<double> p;
+//template<class V>
+
+const std::vector<double>& GetParameters() const
+{
+   if(!p.empty())
+	return p;
+}
+
+void SetParameters(const std::vector<double>& params)
+{
+   if((int)p.size()!=0)
+	p.assign(std::begin(params), std::end(params));
+/*	for(Int_t i = 0; i < p.size(); ++i)
+	      {
+		p[i] = params[i];
+	      }
+	      return;*/
+}
+
+
+TFormulaLite(const char *name, const char *formula)   :
+     fName(name),
+     fFormula(formula)
+{	
+   if (!fFormula.IsNull()) { 
+      fForm = "template<class T> T ";
+      fForm += name;
+      fForm += "(const T& x) {return " + fFormula + ";}";
+      if(fForm.Contains("p[0]"))
+	{
+		std::cout << "Parameters found" << std::endl;
+		std::cout << p.GetParameters() << std::endl;
+	}	
+//      gInterpreter->ProcessLine(fForm);	
+   }	
+}
+
+
+const char* GetName() const {return fName;};
+
+
+
+TString GetTypename(const T& x)
+	{
+		TString type;
+		TClass* ptr = TClass::GetClass(typeid(x));
+		if(!ptr)
+		{
+			type = GetPODName(x);
+		}
+		else
+		{
+		 	type = TClass::GetClass(typeid(x))->GetName();
+		}
+
+		return type;
+	}
+
+
+TString GetPODName(const T& x)
+	{		
+		static const std::map<TString,TString> podMap={{"c","char"},
+						{"Ds","char16_t"},{"Di","char32_t"},{"w","wchar_t"},{"a","signed char"}, 
+						{"s","short"},{"i","int"},{"l","long"},{"x","long long"},
+						{"j","unsigned int"},{"h","unsigned char"},{"t","unsigned short int"},{"m","unsigned long 						          int"},{"y","unsigned long long int"},
+						{"Ss","string"},{"b","bool"},{"f","float"},{"d","double"},{"e","long double"}};	
+		auto typeName = podMap.at(typeid(x).name());
+		return typeName;
+	}
+
+
+TString GetSpecialisedName()
+{
+	TString specialisedFunc;
+	specialisedFunc = fName;
+	return specialisedFunc;
+}
+
+
+void* GetSpecialisedFcnPtr(const TString& funcName, const TString& typeName)
+{
+	const TString textFunction = funcName + "<" + typeName + ">";
+	std::cout << std::endl;
+        std::cout << "injecting " << textFunction << std::endl;
+        return (void*)gInterpreter->ProcessLine(textFunction);	
+}
+
+
+void* GetSpecialisedFcnPtrParam(const TString& funcName, const TString& typeName, const std::vector<double>& p)
+{
+	const TString textFunction = funcName + "<" + typeName + ">";
+	std::cout << std::endl;
+        std::cout << "injecting " << textFunction << std::endl;
+        return (void*)gInterpreter->ProcessLine(textFunction);	
+}
+
+
+T Eval(const T& x, const std::vector<double> p)
+{
+	TString typeName = GetTypename(x);
+	TString funcName = GetSpecialisedName();
+	auto fcnptrAsVoidPtr = GetSpecialisedFcnPtrParam(funcName, typeName, p);
+	auto fcnptr = (T (*)(const T&))fcnptrAsVoidPtr;
+	return fcnptr(x);
+}
+
+
+T Eval(const T& x)
+{
+	TString typeName = GetTypename(x);
+	TString funcName = GetSpecialisedName();
+	auto fcnptrAsVoidPtr = GetSpecialisedFcnPtr(funcName, typeName);
+	auto fcnptr = (T (*)(const T&))fcnptrAsVoidPtr;
+	return fcnptr(x);
+
+}
+
+
+
+
+
+
+
+};
+#endif

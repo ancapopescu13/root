@@ -244,7 +244,7 @@ static bool IsReservedName(const char* name){
    return false;
 }
 
-template<class T> TFormula<T>::TFormula()
+TFormula::TFormula()
 {
    fName = "";
    fTitle = "";
@@ -259,7 +259,7 @@ template<class T> TFormula<T>::TFormula()
    fClingName = "";
    fFormula = "";
 }
-template<class T> TFormula<T>::~TFormula()
+TFormula::~TFormula()
 {
 
    // N.B. a memory leak may happen if user set bit after constructing the object,
@@ -280,7 +280,7 @@ template<class T> TFormula<T>::~TFormula()
 }
 
 #ifdef OLD_VERSION
-template<class T> TFormula<T>::TFormula(const char *name, Int_t nparams, Int_t ndims)
+TFormula::TFormula(const char *name, Int_t nparams, Int_t ndims)
 {
    //*-*
    //*-*  Constructor
@@ -306,7 +306,7 @@ template<class T> TFormula<T>::TFormula(const char *name, Int_t nparams, Int_t n
    }
 }
 #endif
-template<class T> TFormula<T>::TFormula(const char *name, const char *formula, bool addToGlobList)   :
+TFormula::TFormula(const char *name, const char *formula, bool addToGlobList)   :
    TNamed(name,formula),
    fClingInput(formula),fFormula(formula)
 {
@@ -343,7 +343,7 @@ template<class T> TFormula<T>::TFormula(const char *name, const char *formula, b
       PrepareFormula(fFormula);
    }
 }
-template<class T> TFormula<T>::TFormula(const TFormula &formula) : TNamed(formula.GetName(),formula.GetTitle())
+TFormula::TFormula(const TFormula &formula) : TNamed(formula.GetName(),formula.GetTitle())
 {
    fReadyToExecute = false;
    fClingInitialized = false;

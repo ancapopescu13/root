@@ -2,7 +2,6 @@
 # CMakeLists.txt file for building ROOT roofitcore package
 # @author Pere Mato, CERN
 ############################################################################
-set(libname RooFitCore)
 
 set(headers1 Roo1DTable.h RooAbsArg.h RooAbsBinning.h RooAbsCategory.h RooAbsCategoryLValue.h RooAbsCollection.h
              RooAbsData.h RooAbsFunc.h RooAbsGenContext.h RooAbsTestStatistic.h RooAbsHiddenReal.h RooAbsIntegrator.h 
