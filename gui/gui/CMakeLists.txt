@@ -40,6 +40,6 @@ include_directories(${CMAKE_SOURCE_DIR}/)
 ROOT_GENERATE_DICTIONARY(G__Gui ${headers1} ${headers2} ${headers3} MODULE ${libname} LINKDEF LinkDef.h OPTIONS "-writeEmptyRootPCM")
 
 
-ROOT_LINKER_LIBRARY(${libname} *.cxx G__Gui.cxx LIBRARIES Core DEPENDENCIES Gpad Graf MathCore) #Use 1 big dict
+ROOT_LINKER_LIBRARY(${libname} *.cxx G__Gui.cxx LIBRARIES Vcshared ${_srcs} Core DEPENDENCIES Gpad Graf MathCore) #Use 1 big dict
 ROOT_INSTALL_HEADERS()
 

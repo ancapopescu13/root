@@ -229,7 +229,7 @@ void TMVA::StatDialogMVAEffs::UpdateCanvases()
 
 void TMVA::StatDialogMVAEffs::UpdateSignificanceHists() 
 {
-   TFormula f("sigf",GetFormula());
+   TFormula<double> f("sigf",GetFormula());
    TIter next(fInfoList);
    MethodInfo* info(0);
    TString cname = "Classifier";
@@ -248,7 +248,8 @@ void TMVA::StatDialogMVAEffs::UpdateSignificanceHists()
          Float_t B = info->origBgdE->GetBinContent( i ) * fNBackground;
          info->purS->SetBinContent( i, (S+B==0)?0:S/(S+B) );
          
-         Double_t sig = f.Eval(S,B);
+	 double vector[] = {S,B};
+         Double_t sig = f.Eval(vector, 2);
          if (sig > maxSig) {
             maxSig    = sig;
             if (GetFormulaString() == "S/sqrt(B)") {

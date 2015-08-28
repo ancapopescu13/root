@@ -21,7 +21,7 @@ ROOT_LINKER_LIBRARY(ProofPlayer ${sources} G__ProofPlayer.cxx DEPENDENCIES Proof
 
 ROOT_GENERATE_DICTIONARY(G__ProofDraw TProofDraw.h MODULE ProofDraw LINKDEF LinkDefDraw.h)
 
-ROOT_LINKER_LIBRARY(ProofDraw TProofDraw.cxx G__ProofDraw.cxx DEPENDENCIES ProofPlayer TreePlayer)
+ROOT_LINKER_LIBRARY(ProofDraw TProofDraw.cxx G__ProofDraw.cxx LIBRARIES Vcshared ${_srcs} DEPENDENCIES ProofPlayer TreePlayer)
 
 ROOT_INSTALL_HEADERS()
 

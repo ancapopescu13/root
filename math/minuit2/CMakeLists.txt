@@ -23,7 +23,7 @@ endif()
 
 ROOT_GENERATE_DICTIONARY(G__Minuit2 *.h  Minuit2/*.h MODULE Minuit2 LINKDEF LinkDef.h OPTIONS "-writeEmptyRootPCM")
 
-ROOT_LINKER_LIBRARY(Minuit2 *.cxx G__Minuit2.cxx DEPENDENCIES MathCore Hist)
+ROOT_LINKER_LIBRARY(Minuit2 *.cxx G__Minuit2.cxx LIBRARIES Vcshared ${_srcs} DEPENDENCIES MathCore Hist)
 ROOT_INSTALL_HEADERS()
 
 ROOT_ADD_TEST_SUBDIRECTORY(test)

@@ -173,14 +173,14 @@ private:
    TVectorD     fAtbTemp2;       //!
    TVectorD     fAtbTemp3;       //!
 
-   static std::map<TString,TFormula*>   fgFormulaMap;  //! map of basis functions and formula
+   static std::map<TString,TFormula<double>*>   fgFormulaMap;  //! map of basis functions and formula
    TObjArray    fFunctions;      //array of basis functions
    TVectorD     fY;              //the values being fit
    Double_t     fY2;             //sum of square of y, used for chisquare
    Double_t     fY2Temp;         //! temporary variable used for num.stability
    TMatrixD     fX;              //values of x
    TVectorD     fE;              //the errors if they are known
-   TFormula     *fInputFunction; //the function being fit
+   TFormula<double>     *fInputFunction; //the function being fit
    Double_t     fVal[1000];      //! temporary
 
    Int_t        fNpoints;        //number of points
@@ -220,7 +220,7 @@ public:
    TLinearFitter();
    TLinearFitter(Int_t ndim, const char *formula, Option_t *opt="D");
    TLinearFitter(Int_t ndim);
-   TLinearFitter(TFormula *function, Option_t *opt="D");
+   TLinearFitter(TFormula<double> *function, Option_t *opt="D");
    TLinearFitter(const TLinearFitter& tlf);
    virtual ~TLinearFitter();
 
@@ -266,7 +266,7 @@ public:
    virtual void       SetBasisFunctions(TObjArray * functions);
    virtual void       SetDim(Int_t n);
    virtual void       SetFormula(const char* formula);
-   virtual void       SetFormula(TFormula *function);
+   virtual void       SetFormula(TFormula<double> *function);
    virtual void       StoreData(Bool_t store) {fStoreData=store;}
 
    virtual Bool_t     UpdateMatrix();

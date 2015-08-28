@@ -26,7 +26,7 @@
 ClassImp(TLinearFitter)
 
 
-std::map<TString,TFormula*> TLinearFitter::fgFormulaMap;
+std::map<TString,TFormula<double>*> TLinearFitter::fgFormulaMap;
 
 
 
@@ -300,7 +300,7 @@ TLinearFitter::TLinearFitter(Int_t ndim, const char *formula, Option_t *opt)
 ///If you don't want to store the data, choose "" for the option, or run
 ///StoreData(kFalse) member function after the constructor
 
-TLinearFitter::TLinearFitter(TFormula *function, Option_t *opt)
+TLinearFitter::TLinearFitter(TFormula<double> *function, Option_t *opt)
 {
    fNdim=function->GetNdim();
    if (!function->IsLinear()){
@@ -441,7 +441,7 @@ TLinearFitter& TLinearFitter::operator=(const TLinearFitter& tlf)
       for(Int_t i = 0; i < 1000; i++) fVal[i] = tlf.fVal[i];
 
       if(fInputFunction) delete fInputFunction; fInputFunction = 0;
-      if(tlf.fInputFunction) fInputFunction = new TFormula(*tlf.fInputFunction);
+      if(tlf.fInputFunction) fInputFunction = new TFormula<double>(*tlf.fInputFunction);
 
       fNpoints=tlf.fNpoints;
       fNfunctions=tlf.fNfunctions;
@@ -634,8 +634,8 @@ void TLinearFitter::AddToDesign(Double_t *x, Double_t y, Double_t e)
          if (!fFunctions.IsEmpty()){
             // ffunctions can be TF1 or TFormula depending on how they are created 
             TObject * obj = fFunctions.UncheckedAt(ii);
-            if (obj->IsA() == TFormula::Class() ) {
-               TFormula *f1 = (TFormula*)(obj);
+            if (obj->IsA() == TFormula<double>::Class() ) {
+               TFormula<double> *f1 = (TFormula<double>*)(obj);
                fVal[ii]=f1->EvalPar(x)/e;
             }
             else if  (obj->IsA() == TF1::Class() ) {
@@ -647,7 +647,7 @@ void TLinearFitter::AddToDesign(Double_t *x, Double_t y, Double_t e)
                return;
             }
          } else {
-            TFormula *f=(TFormula*)fInputFunction->GetLinearPart(ii);
+            TFormula<double> *f=(TFormula<double>*)fInputFunction->GetLinearPart(ii);
             if (!f){
                Error("AddToDesign","Function %s has no linear parts - maybe missing a ++ in the formula expression",fInputFunction->GetName());
                return;
@@ -827,7 +827,7 @@ void TLinearFitter::Chisquare()
                      temp += fParams(i+1)*fX(point, i);
                } else {
                   for (j=0; j<fNfunctions; j++) {
-                     TFormula *f1 = (TFormula*)(fFunctions.UncheckedAt(j));
+                     TFormula<double> *f1 = (TFormula<double>*)(fFunctions.UncheckedAt(j));
                      val[j] = f1->EvalPar(TMatrixDRow(fX, point).GetPtr());
                      temp += fParams(j)*val[j];
                   }
@@ -1558,12 +1558,12 @@ void TLinearFitter::SetFormula(const char *formula)
       for (i=0; i<fNfunctions; i++) {
          replaceformula = ((TObjString *)oa->UncheckedAt(i))->GetString();
          // look first if exists in the map
-         TFormula * f = nullptr; 
+         TFormula<double> * f = nullptr; 
          if (fgFormulaMap.count(replaceformula ) > 0) 
             f = fgFormulaMap.find(replaceformula )->second;
          else {
             // create a new formula and add in the static map
-            f = new TFormula("f", replaceformula.Data());
+            f = new TFormula<double>("f", replaceformula.Data());
             {
                R__LOCKGUARD2(gROOTMutex);
                fgFormulaMap[replaceformula]=f;
@@ -1619,7 +1619,7 @@ void TLinearFitter::SetFormula(const char *formula)
 ////////////////////////////////////////////////////////////////////////////////
 ///Set the fitting function.
 
-void TLinearFitter::SetFormula(TFormula *function)
+void TLinearFitter::SetFormula(TFormula<double> *function)
 {
    Int_t special, size;
    fInputFunction=function;

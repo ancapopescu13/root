@@ -350,7 +350,7 @@ double TGDMLParse::Evaluate(const char* evalline)
 {
    //takes a string containing a mathematical expression and returns the value of the expression
 
-   return TFormula("TFormula", evalline).Eval(0);
+   return TFormula<double>("TFormula", evalline).Eval(0);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -420,7 +420,7 @@ XMLNodePointer_t TGDMLParse::ConProcess(TXMLEngine* gdml, XMLNodePointer_t node,
    // name = TString::Format("%s_%s", name.Data(), fCurrentFile);
    //}
 
-   fformvec.push_back(new TFormula(name, value));
+   fformvec.push_back(new TFormula<double>(name, value));
 
    return node;
 }

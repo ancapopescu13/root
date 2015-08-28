@@ -20,6 +20,6 @@ set(headers TGeoVolumeEditor.h TGeoBBoxEditor.h TGeoMediumEditor.h
 ROOT_GENERATE_DICTIONARY(G__${libname} ${headers} MODULE ${libname} LINKDEF LinkDef.h)
 
 
-ROOT_LINKER_LIBRARY(${libname} *.cxx G__${libname}.cxx DEPENDENCIES Geom Graf3d Gpad Graf Gui Ged)
+ROOT_LINKER_LIBRARY(${libname} *.cxx G__${libname}.cxx LIBRARIES Vcshared DEPENDENCIES Geom Graf3d Gpad Graf Gui Ged)
 ROOT_INSTALL_HEADERS()
 

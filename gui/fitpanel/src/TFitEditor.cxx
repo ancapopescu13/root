@@ -2445,7 +2445,7 @@ void TFitEditor::DoFunction(Int_t selected)
       else
       {
          s = fEnteredFunc->GetTitle();
-         TFormula tmp("tmp", fEnteredFunc->GetText());
+         TFormula<double> tmp("tmp", fEnteredFunc->GetText());
          np = tmp.GetNpar();
       }
       if (np)
@@ -2467,7 +2467,7 @@ void TFitEditor::DoFunction(Int_t selected)
       else
       {
          s = fEnteredFunc->GetTitle();
-         TFormula tmp("tmp", fEnteredFunc->GetText());
+         TFormula<double> tmp("tmp", fEnteredFunc->GetText());
          np = tmp.GetNpar();
       }
       if (np)
@@ -2488,7 +2488,7 @@ void TFitEditor::DoFunction(Int_t selected)
       else
       {
          s = fEnteredFunc->GetTitle();
-         TFormula tmp("tmp", fEnteredFunc->GetText());
+         TFormula<double> tmp("tmp", fEnteredFunc->GetText());
          np = tmp.GetNpar();
       }
       if (np)

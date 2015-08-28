@@ -204,7 +204,7 @@ private:
    typedef std::map<std::string, std::string> ReflectionsMap;
    typedef std::map<std::string, std::string> ReflVolMap;
    typedef std::map<std::string, double> FracMap;
-   typedef std::vector<TFormula*> FormVec;
+   typedef std::vector<TFormula<double>*> FormVec;
 
    PosMap fposmap;                //!Map containing position names and the TGeoTranslation for it
    RotMap frotmap;                //!Map containing rotation names and the TGeoRotation for it

@@ -118,11 +118,11 @@ double WrappedTF1::DoParameterDerivative(double x, const double * p, unsigned in
    }
    else {
       // case of general linear function (built in TFormula with ++ )
-      const TFormula * df = dynamic_cast<const TFormula*>( fFunc->GetLinearPart(ipar) );
+      const TFormula<double> * df = dynamic_cast<const TFormula<double>*>( fFunc->GetLinearPart(ipar) );
       assert(df != 0);
       fX[0] = x;
       // hack since TFormula::EvalPar is not const
-      return (const_cast<TFormula*> ( df) )->Eval( x ) ; // derivatives should not depend on parameters since func is linear 
+      return (const_cast<TFormula<double>*> ( df) )->Eval( x ) ; // derivatives should not depend on parameters since func is linear 
    }
 }
 
@@ -228,9 +228,9 @@ double WrappedMultiTF1::DoParameterDerivative(const double * x, const double * p
    }
    else {
       // case of general linear function (built in TFormula with ++ )
-      const TFormula * df = dynamic_cast<const TFormula*>( fFunc->GetLinearPart(ipar) );
+      const TFormula<double> * df = dynamic_cast<const TFormula<double>*>( fFunc->GetLinearPart(ipar) );
       assert(df != 0);
-      return (const_cast<TFormula*> ( df) )->EvalPar( x ) ; // derivatives should not depend on parameters since
+      return (const_cast<TFormula<double>*> ( df) )->EvalPar(x) ; // derivatives should not depend on parameters since
                                                             // function  is linear
    }
 }

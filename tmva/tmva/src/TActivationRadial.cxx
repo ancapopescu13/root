@@ -47,8 +47,8 @@ ClassImp(TMVA::TActivationRadial)
 
 TMVA::TActivationRadial::TActivationRadial()
 {
-   fEqn           = new TFormula("Gaussian",   "TMath::Exp(-x^2/2.0)");
-   fEqnDerivative = new TFormula("derivative", "-x*TMath::Exp(-x^2/2.0)");
+   fEqn           = new TFormula<double>("Gaussian",   "TMath::Exp(-x^2/2.0)");
+   fEqnDerivative = new TFormula<double>("derivative", "-x*TMath::Exp(-x^2/2.0)");
 }
 
 ////////////////////////////////////////////////////////////////////////////////

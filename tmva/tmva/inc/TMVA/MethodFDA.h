@@ -52,8 +52,11 @@
 #ifndef ROOT_TMVA_IFitterTarget
 #include "TMVA/IFitterTarget.h"
 #endif
+#ifndef ROOT_TFormula
+#include "TFormula.h"
+#endif
 
-class TFormula;
+//class TFormula;
 
 namespace TMVA {
 
@@ -138,7 +141,7 @@ namespace TMVA {
       TString                fFormulaStringT;     // string with function
       TString                fParRangeStringT;    // string with ranges of parameters
 
-      TFormula*              fFormula;            // the discrimination function
+      TFormula<double>*      fFormula;            // the discrimination function
       UInt_t                 fNPars;              // number of parameters
       std::vector<Interval*> fParRange;           // ranges of parameters
       std::vector<Double_t>  fBestPars;           // the pars that optimise (minimise) the estimator

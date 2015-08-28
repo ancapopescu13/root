@@ -36,6 +36,8 @@ else()
    endif()
 endif()
 add_library(Vc STATIC ${_srcs})
+ROOT_LINKER_LIBRARY(Vcshared ${_srcs})
+#add_library(Vcshared SHARED ${_srcs})
 add_target_property(Vc COMPILE_FLAGS ${libvc_compile_flags})
 
 set_property(GLOBAL APPEND PROPERTY ROOT_EXPORTED_TARGETS Vc)

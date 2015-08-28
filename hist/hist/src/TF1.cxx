@@ -419,7 +419,7 @@ TF1::TF1(const char *name,const char *formula, Double_t xmin, Double_t xmax) :
       fXmax = xmin;
    }
    // create rep formula (no need to add to gROOT list since we will add the TF1 object)
-   fFormula = new TFormula(name,formula,false);
+   fFormula = new TFormula<double>(name,formula,false);
    fNpar = fFormula->GetNpar();
    fNdim = fFormula->GetNdim();
    if (fNpar) {
@@ -761,9 +761,9 @@ void TF1::Copy(TObject &obj) const
    }
    if(fFormula)
    {
-      TFormula * formulaToCopy = ((TF1&)obj).fFormula;
+      TFormula<double> * formulaToCopy = ((TF1&)obj).fFormula;
       if (formulaToCopy) delete formulaToCopy;
-      formulaToCopy = new TFormula();
+      formulaToCopy = new TFormula<double>();
       fFormula->Copy( *formulaToCopy );
       ((TF1&)obj).fFormula =  formulaToCopy;
    }
@@ -1128,9 +1128,8 @@ void TF1::DrawF1(Double_t xmin, Double_t xmax, Option_t *option)
 
 Double_t TF1::Eval(Double_t x, Double_t y, Double_t z, Double_t t) const
 {
-   if (fType == 0) return fFormula->Eval(x,y,z,t);
-
    Double_t xx[4] = {x, y, z, t};
+   if (fType == 0) return fFormula->Eval(xx, 4);
    Double_t *pp = GetParameters();
    ((TF1*)this)->InitArgs(xx,pp);
    

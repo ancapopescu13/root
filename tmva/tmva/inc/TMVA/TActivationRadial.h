@@ -72,8 +72,8 @@ namespace TMVA {
 
    private:
 
-      TFormula* fEqn;                // equation of radial basis function
-      TFormula* fEqnDerivative;      // equation of derivative
+      TFormula<double>* fEqn;                // equation of radial basis function
+      TFormula<double>* fEqnDerivative;      // equation of derivative
 
       ClassDef(TActivationRadial,0)  // Radial basis activation function for TNeuron
    };

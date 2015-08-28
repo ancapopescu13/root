@@ -4,6 +4,7 @@
 ############################################################################
 #---The following is needed becuase client codes of TMVA (in ROOT itself) assumes to find header files under /TVMA
 #execute_process(COMMAND cmake -E create_symlink ${CMAKE_CURRENT_SOURCE_DIR}/inc ${CMAKE_CURRENT_SOURCE_DIR}/inc/TMVA)
+set(libname TMVA)
 
 if(NOT CMAKE_PROJECT_NAME STREQUAL ROOT)
   cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
@@ -53,7 +54,7 @@ endforeach()
 
 ROOT_GENERATE_DICTIONARY(G__TMVA ${theaders1} ${theaders2} ${theaders3} ${theaders4}   MODULE TMVA LINKDEF LinkDef.h OPTIONS "-writeEmptyRootPCM")
 
-ROOT_LINKER_LIBRARY(TMVA *.cxx G__TMVA.cxx LIBRARIES Core
+ROOT_LINKER_LIBRARY(TMVA *.cxx G__TMVA.cxx LIBRARIES Vcshared Core
                     DEPENDENCIES RIO Hist Tree TreeViewer  MLP Minuit XMLIO)
 
 install(DIRECTORY inc/TMVA/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/TMVA

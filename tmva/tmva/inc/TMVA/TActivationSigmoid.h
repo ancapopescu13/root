@@ -72,8 +72,8 @@ namespace TMVA {
 
    private:
 
-      TFormula* fEqn;                // equation of sigmoid
-      TFormula* fEqnDerivative;      // equation of sigmoid derivative
+      TFormula<double>* fEqn;                // equation of sigmoid
+      TFormula<double>* fEqnDerivative;      // equation of sigmoid derivative
 
       ClassDef(TActivationSigmoid,0) // Sigmoid activation function for TNeuron
    };

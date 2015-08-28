@@ -48,9 +48,9 @@ ClassImp(TMVA::TActivationSigmoid)
 
 TMVA::TActivationSigmoid::TActivationSigmoid()
 {
-   fEqn = new TFormula("sigmoid", "1.0/(1.0+TMath::Exp(-x))");
+   fEqn = new TFormula<double>("sigmoid", "1.0/(1.0+TMath::Exp(-x))");
    fEqnDerivative = 
-      new TFormula("derivative", "TMath::Exp(-x)/(1.0+TMath::Exp(-x))^2");
+      new TFormula<double>("derivative", "TMath::Exp(-x)/(1.0+TMath::Exp(-x))^2");
 }
 
 ////////////////////////////////////////////////////////////////////////////////

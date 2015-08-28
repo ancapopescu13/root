@@ -18,12 +18,15 @@
 #ifndef ROOT_TObjArray
 #include "TObjArray.h"
 #endif
+#ifndef ROOT_TFormula
+#include "TFormula.h"
+#endif
 
 class TTreeFormula;
 class TSynapse;
 class TBranch;
 class TTree;
-class TFormula;
+//class TFormula;
 
 //____________________________________________________________________
 //
@@ -93,8 +96,8 @@ class TNeuron : public TNamed {
    Double_t fWeight;      // weight used for computation
    Double_t fNorm[2];     // normalisation to mean=0, RMS=1.
    ENeuronType fType;     // neuron type
-   TFormula* fExtF;       // function   (external mode)
-   TFormula* fExtD;       // derivative (external mode)
+   TFormula<double>* fExtF;       // function   (external mode)
+   TFormula<double>* fExtD;       // derivative (external mode)
    //buffers
    //should be mutable when supported by all compilers
    TTreeFormula* fFormula;//! formula to be used for inputs and outputs

@@ -145,7 +145,8 @@ get_property(__allTargets GLOBAL PROPERTY ROOT_DICTIONARY_TARGETS)
 get_property(__allFiles GLOBAL PROPERTY ROOT_DICTIONARY_FILES)
 get_property(__clingetcpch GLOBAL PROPERTY CLINGETCPCH)
 
-
+#set(CMAKE_CXX_FLAGS_OPT "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_OPTIMIZED}")
+#string (REPLACE " " ";" CMAKE_CXX_FLAGS_SEPARATE ${CMAKE_CXX_FLAGS_OPT})
 string (REPLACE " " ";" CMAKE_CXX_FLAGS_SEPARATE ${CMAKE_CXX_FLAGS})
 add_custom_command(OUTPUT etc/dictpch/allLinkDefs.h
                           etc/dictpch/allHeaders.h

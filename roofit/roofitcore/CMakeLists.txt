@@ -2,7 +2,7 @@
 # CMakeLists.txt file for building ROOT roofitcore package
 # @author Pere Mato, CERN
 ############################################################################
-
+set(libname RooFitCore)
 
 set(headers1 Roo1DTable.h RooAbsArg.h RooAbsBinning.h RooAbsCategory.h RooAbsCategoryLValue.h RooAbsCollection.h
              RooAbsData.h RooAbsFunc.h RooAbsGenContext.h RooAbsTestStatistic.h RooAbsHiddenReal.h RooAbsIntegrator.h 
@@ -45,7 +45,7 @@ set(headers4 RooConstraintSum.h RooRecursiveFraction.h RooDataWeightedAverage.h
 
 ROOT_GENERATE_DICTIONARY(G__RooFitCore MODULE RooFitCore ${headers1} ${headers2} ${headers3} ${headers4} LINKDEF LinkDef.h OPTIONS "-writeEmptyRootPCM")
 
-ROOT_LINKER_LIBRARY(RooFitCore *.cxx G__RooFitCore.cxx LIBRARIES Core
+ROOT_LINKER_LIBRARY(RooFitCore *.cxx G__RooFitCore.cxx LIBRARIES Vcshared Core
                     DEPENDENCIES Hist Graf Matrix Tree Minuit RIO MathCore Foam)
 ROOT_INSTALL_HEADERS()
 

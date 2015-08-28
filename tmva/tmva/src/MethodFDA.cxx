@@ -208,7 +208,7 @@ void TMVA::MethodFDA::CreateFormula()
 
    // create TF1
    if (fFormula) delete fFormula;
-   fFormula = new TFormula( "FDA_Formula", fFormulaStringT );
+   fFormula = new TFormula<double>( "FDA_Formula", fFormulaStringT );
 
    // is formula correct ?
    if (!fFormula->IsValid())

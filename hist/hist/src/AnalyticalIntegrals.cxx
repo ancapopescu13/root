@@ -23,7 +23,6 @@
 #include "AnalyticalIntegrals.h"
 #include "Math/DistFuncMathCore.h" //for cdf
 
-
 using namespace std;
 
 Double_t AnalyticalIntegral(TF1 *f, Double_t a, Double_t b)
@@ -35,7 +34,7 @@ Double_t AnalyticalIntegral(TF1 *f, Double_t a, Double_t b)
    Double_t *p   = f->GetParameters();
    Double_t result = 0.;
 
-   TFormula * formula = f->GetFormula();
+   TFormula<double> * formula = f->GetFormula();
    if (!formula) {
       Error("TF1::AnalyticalIntegral","Invalid formula number - return a NaN"); 
       result = TMath::QuietNaN();
@@ -50,7 +49,7 @@ Double_t AnalyticalIntegral(TF1 *f, Double_t a, Double_t b)
       double amp   = p[0];
       double mean  = p[1];
       double sigma = p[2];
-      if (formula->TestBit(TFormula::kNormalized) ) 
+      if (formula->TestBit(TFormula<double>::kNormalized) ) 
          result =  amp*( ROOT::Math::gaussian_cdf(xmax, sigma, mean)- ROOT::Math::gaussian_cdf(xmin, sigma, mean) );
       else
          result =  amp*sqrt(2*M_PI)*sigma*(ROOT::Math::gaussian_cdf(xmax, sigma, mean)- ROOT::Math::gaussian_cdf(xmin, sigma, mean));//
@@ -62,7 +61,7 @@ Double_t AnalyticalIntegral(TF1 *f, Double_t a, Double_t b)
       double mean  = p[1];
       double sigma = p[2];
       //printf("computing integral for landau in [%f,%f] for m=%f s = %f \n",xmin,xmax,mean,sigma);
-      if (formula->TestBit(TFormula::kNormalized) ) 
+      if (formula->TestBit(TFormula<double>::kNormalized) ) 
          result = amp*(ROOT::Math::landau_cdf(xmax,sigma,mean) - ROOT::Math::landau_cdf(xmin,sigma,mean));
       else 
          result = amp*sigma*(ROOT::Math::landau_cdf(xmax,sigma,mean) - ROOT::Math::landau_cdf(xmin,sigma,mean));

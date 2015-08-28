@@ -13,7 +13,7 @@ ROOT_USE_PACKAGE(graf3d/g3d)
 ROOT_GENERATE_DICTIONARY(G__${libname} *.h MODULE ${libname} LINKDEF LinkDef.h OPTIONS "-writeEmptyRootPCM")
 
 
-ROOT_LINKER_LIBRARY(${libname} *.cxx G__${libname}.cxx DEPENDENCIES Tree Graf3d Graf Hist Gpad RIO MathCore)
+ROOT_LINKER_LIBRARY(${libname} *.cxx G__${libname}.cxx LIBRARIES Vcshared DEPENDENCIES Tree Graf3d Graf Hist Gpad RIO MathCore)
 ROOT_INSTALL_HEADERS()
 
 

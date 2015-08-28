@@ -163,7 +163,7 @@ protected:
    Bool_t      fNormalized;  //Normalization option (false by default)
    Double_t    fNormIntegral;//Integral of the function before being normalized
    ROOT::Math::ParamFunctor fFunctor;   //! Functor object to wrap any C++ callable object
-   TFormula    *fFormula;    //Pointer to TFormula in case when user define formula
+   TFormula<double>    *fFormula;    //Pointer to TFormula in case when user define formula
    TF1Parameters *fParams;   //Pointer to Function parameters object (exusts only for not-formula functions)
 
    static Bool_t fgAbsValue;  //use absolute value of function when computing integral
@@ -333,8 +333,8 @@ public:
        Double_t     GetChisquare() const {return fChisquare;}
    virtual TH1     *GetHistogram() const;
    virtual TH1     *CreateHistogram() { return DoCreateHistogram(fXmin, fXmax); }
-   virtual TFormula *GetFormula() { return fFormula;}
-   virtual const TFormula *GetFormula() const { return fFormula;}
+   virtual TFormula<double> *GetFormula() { return fFormula;}
+   virtual const TFormula<double> *GetFormula() const { return fFormula;}
    virtual TString  GetExpFormula(Option_t *option="") const { return (fFormula) ? fFormula->GetExpFormula(option) : ""; }
    virtual const TObject *GetLinearPart(Int_t i) const { return (fFormula) ? fFormula->GetLinearPart(i) : nullptr;}
    virtual Double_t GetMaximum(Double_t xmin=0, Double_t xmax=0, Double_t epsilon = 1.E-10, Int_t maxiter = 100, Bool_t logx = false) const;

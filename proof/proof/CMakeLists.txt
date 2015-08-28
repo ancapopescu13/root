@@ -28,7 +28,7 @@ endif()
 
 ROOT_GENERATE_DICTIONARY(G__Proof ${headers} MODULE Proof LINKDEF LinkDef.h)
 
-ROOT_LINKER_LIBRARY(Proof ${sources} G__Proof.cxx DEPENDENCIES Net Tree Thread RIO MathCore)
+ROOT_LINKER_LIBRARY(Proof ${sources} G__Proof.cxx LIBRARIES Vcshared ${_srcs} DEPENDENCIES Net Tree Thread RIO MathCore)
 ROOT_INSTALL_HEADERS()
 
 
